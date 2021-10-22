@@ -18,7 +18,7 @@ const images = galleryItems.map(({ preview, original, description }) =>
       </a>
      </div>`
 ).join('');
-    
+   
 const onImageOpenModal = (event)=>{
     event.preventDefault();
     if (event.target.nodeName === "IMG") {
@@ -26,33 +26,22 @@ const onImageOpenModal = (event)=>{
             <img width="1200" height="900" src="${event.target.dataset.source}" alt="${event.target.alt}">
         `);
         modal.show();
+        console.log('modal')
         galleryRef.addEventListener('keydown', onKeyCloseModal);
-        
-        console.log('yes')
+        modal.element().addEventListener('click', (e) => { galleryRef.removeEventListener('keydown', onKeyCloseModal); console.log("ffff") }, {once: true});
     }
-    // if (event.target === modal) {
-    //     modal.close()
-    //     galleryRef.removeEventListener('keydown', onKeyCloseModal);
-    //     console.log('aaaaaaa')
-    // }
 }
 const onKeyCloseModal = (event) => {
     if (event.key === "Escape") {
         modal.close()
         galleryRef.removeEventListener('keydown', onKeyCloseModal);
-        console.log('not')
+        console.log('esc')
     }
 }
-// const onClickCloseModal = (event) => {
-//     if (modal) {
-//         modal.close();
-//         galleryRef.removeEventListener('keydown', onKeyCloseModal);
-//         console.log('not')
-//     }
-// }
+
+
 galleryRef.insertAdjacentHTML("beforeend", images);
 galleryRef.addEventListener('click', onImageOpenModal);
-// galleryRef.addEventListener('click', onClickCloseModal);
 
 if ('loading' in HTMLImageElement.prototype) {
     const lazyImages = galleryRef.querySelectorAll('img[loading="lazy"]');
