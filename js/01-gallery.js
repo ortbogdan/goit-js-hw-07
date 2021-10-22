@@ -21,22 +21,38 @@ const images = galleryItems.map(({ preview, original, description }) =>
     
 const onImageOpenModal = (event)=>{
     event.preventDefault();
-    if(event.target.nodeName === "IMG"){
-          modal = basicLightbox.create(`
+    if (event.target.nodeName === "IMG") {
+        modal = basicLightbox.create(`
             <img width="1200" height="900" src="${event.target.dataset.source}" alt="${event.target.alt}">
         `);
         modal.show();
         galleryRef.addEventListener('keydown', onKeyCloseModal);
+        
+        console.log('yes')
     }
+    // if (event.target === modal) {
+    //     modal.close()
+    //     galleryRef.removeEventListener('keydown', onKeyCloseModal);
+    //     console.log('aaaaaaa')
+    // }
 }
 const onKeyCloseModal = (event) => {
     if (event.key === "Escape") {
         modal.close()
-         galleryRef.removeEventListener('keydown', onKeyCloseModal);
+        galleryRef.removeEventListener('keydown', onKeyCloseModal);
+        console.log('not')
     }
 }
+// const onClickCloseModal = (event) => {
+//     if (modal) {
+//         modal.close();
+//         galleryRef.removeEventListener('keydown', onKeyCloseModal);
+//         console.log('not')
+//     }
+// }
 galleryRef.insertAdjacentHTML("beforeend", images);
 galleryRef.addEventListener('click', onImageOpenModal);
+// galleryRef.addEventListener('click', onClickCloseModal);
 
 if ('loading' in HTMLImageElement.prototype) {
     const lazyImages = galleryRef.querySelectorAll('img[loading="lazy"]');
