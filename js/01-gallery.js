@@ -26,16 +26,15 @@ const onImageOpenModal = (event)=>{
             <img width="1200" height="900" src="${event.target.dataset.source}" alt="${event.target.alt}">
         `);
         modal.show();
-        console.log('modal')
         galleryRef.addEventListener('keydown', onKeyCloseModal);
-        modal.element().addEventListener('click', (e) => { galleryRef.removeEventListener('keydown', onKeyCloseModal); console.log("ffff") }, {once: true});
+        modal.element().addEventListener('click', (e) => galleryRef.removeEventListener('keydown', onKeyCloseModal), {once: true});
     }
 }
 const onKeyCloseModal = (event) => {
     if (event.key === "Escape") {
         modal.close()
         galleryRef.removeEventListener('keydown', onKeyCloseModal);
-        console.log('esc')
+        
     }
 }
 
